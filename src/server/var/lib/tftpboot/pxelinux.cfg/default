@@ -1,0 +1,26 @@
+DEFAULT nextdevice
+UI vesamenu.c32
+TIMEOUT 100
+PROMPT 0
+
+LABEL nextdevice
+	MENU LABEL Boot Next Device (Usually local hard drive)
+	SAY Attempting to boot next device (probably the local hard drive)
+	LOCALBOOT -1
+
+LABEL memtest
+	MENU LABEL Memory Test
+	SAY Attempting to start up memtest86+
+	kernel memtest/memtest
+
+LABEL ubuntu-install
+	MENU LABEL Automated Ubuntu Install
+	SAY Attempting to perform fully automated install of Ubuntu
+	kernel ubuntu-installer/amd64/linux
+	append auto=true priority=critical vga=788 netcfg/choose_interface=ens33 initrd=ubuntu-installer/amd64/initrd.gz preseed/url=tftp://10.42.0.254/preseed/ubuntu-16.04-preseed.cfg.DESKTOP preseed/interactive=false
+
+LABEL ubuntu-install-server
+	MENU LABEL Automated Ubuntu Server Install
+	SAY Attempting to perform fully automated install of Ubuntu server
+	kernel ubuntu-installer/amd64/linux
+	append auto=true priority=critical vga=788 netcfg/choose_interface=ens33 initrd=ubuntu-installer/amd64/initrd.gz preseed/url=tftp://10.42.0.254/preseed/ubuntu-16.04-preseed.cfg.EN-SERVER preseed/interactive=false
